@@ -32,10 +32,31 @@ final class Project {
 	{
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		//add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
-		add_action('add_meta_boxes', 'image_cmb');
-
+		add_action('add_meta_boxes', array( $this, 'image_cmb' ));
+		add_action('wp_enqueue_scripts', array( $this, 'scripts' ));
 
 	} // END __construct
+	/**
+	 * Scripts
+	 *
+	 * @access public
+	 * @since v0.2.0
+	 * @author Azeem Mirza
+	 **/
+
+	public function scripts () {
+		wp_register_style(
+			'project-style',
+			plugin_dir_url( ).'/assets/style.css'
+		);
+		wp_enqueue_style( 'project-style' );
+
+		wp_register_script(
+			'project-script',
+			plugin_dir_url( ).'/assets/script.js');
+		wp_enqueue_script('project-script');
+	}
+
 	/**
 	 * Load plugin textdomain
 	 *
@@ -117,6 +138,23 @@ final class Project {
 	} // END register_taxonomy
 
 	public function image_cmb () {
+		add_meta_box(
+			'project_image',
+			__( 'Project Body', 'cpt_project'),
+			array( $this, 'image_cmb_callback' ),
+			'project',
+			'advanced',
+			'default'
+		);
+	}
+
+	public  function image_cmb_callback ($post) {
+		// Add nonce for security and authentication.
+		wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
+		/*require 'project-form.php';*/
+		?>
+
+		<?php
 
 	}
 
