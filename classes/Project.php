@@ -31,7 +31,10 @@ final class Project {
 	public function __construct()
 	{
 		add_action( 'init', array( $this, 'register_post_type' ) );
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		//add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action('add_meta_boxes', 'image_cmb');
+
+
 	} // END __construct
 	/**
 	 * Load plugin textdomain
@@ -79,7 +82,7 @@ final class Project {
 			'hierarchical' => FALSE,
 			'menu_position' => NULL,
 			'menu_icon' => 'dashicons-clipboard',
-			'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields' )
+			'supports' => array( 'title', /*'editor', 'author',*/ 'thumbnail', /*'excerpt', 'custom-fields'*/ )
 		) );
 	} // END register_post_type
 	/**
@@ -112,6 +115,11 @@ final class Project {
 			'show_admin_column' => TRUE,
 		));
 	} // END register_taxonomy
+
+	public function image_cmb () {
+
+	}
+
 } // END Custom_Post_Type_Project
 
 /**
