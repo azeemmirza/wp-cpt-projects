@@ -15,3 +15,6 @@
  * Created by PhpStorm.
  */
 
+require( 'classes/Project.php' );
+if ( is_admin() )
+	require( 'classes/Project_Admin.php' );
