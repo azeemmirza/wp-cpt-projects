@@ -33,7 +33,7 @@ final class Project {
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		//add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 		add_action('add_meta_boxes', array( $this, 'image_cmb' ));
-		add_action('wp_enqueue_scripts', array( $this, 'scripts' ));
+
 
 	} // END __construct
 	/**
@@ -47,13 +47,13 @@ final class Project {
 	public function scripts () {
 		wp_register_style(
 			'project-style',
-			plugin_dir_url( ).'/assets/style.css'
+			plugin_dir_url(__DIR__ ).'assets/style.css'
 		);
 		wp_enqueue_style( 'project-style' );
 
 		wp_register_script(
 			'project-script',
-			plugin_dir_url( ).'/assets/script.js');
+			plugin_dir_url(__DIR__ ).'assets/script.js');
 		wp_enqueue_script('project-script');
 	}
 
@@ -105,6 +105,7 @@ final class Project {
 			'menu_icon' => 'dashicons-clipboard',
 			'supports' => array( 'title', /*'editor', 'author',*/ 'thumbnail', /*'excerpt', 'custom-fields'*/ )
 		) );
+
 	} // END register_post_type
 	/**
 	 * Register taxonomy
@@ -115,6 +116,7 @@ final class Project {
 	 */
 	public function register_taxonomy()
 	{
+		add_action('wp_enqueue_scripts', array( $this, 'scripts' ));
 		register_taxonomy( 'project-category', array( 'project' ), array(
 			'hierarchical' => TRUE,
 			'labels' => array(
@@ -135,6 +137,7 @@ final class Project {
 			'rewrite' => array( 'slug' => _x( 'project-category', 'Project Category Slug', 'custom-post-type-projects' ) ),
 			'show_admin_column' => TRUE,
 		));
+
 	} // END register_taxonomy
 
 	public function image_cmb () {
@@ -151,7 +154,8 @@ final class Project {
 	public  function image_cmb_callback ($post) {
 		// Add nonce for security and authentication.
 		wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
-		/*require 'project-form.php';*/
+		require 'project-form.php';
+/*echo plugin_dir_url(__DIR__ ).'assets/script.js';*/
 		?>
 
 		<?php
