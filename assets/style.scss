@@ -1,1 +1,25 @@
 //Meta Staring
+.project-form{
+
+  .buttons-wrapper {
+    margin: 30px 0;
+  }
+
+}
+
+.form-wrap {
+  .image-block {
+    margin: 15px 0 ;
+    img{
+      min-width: 200px;
+      margin-right: 15px;
+    }
+  }
+  .text-block {
+    margin: 15px 0 ;
+    textarea{
+      width: 100%;
+      height: 100px;
+    }
+  }
+}
